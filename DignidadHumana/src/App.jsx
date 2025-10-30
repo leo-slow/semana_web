@@ -66,18 +66,20 @@ function App() {
 
   return (
     <>
-      <div className="w-[100vw] h-[100vh] bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.turismocastillayleon.com%2Fes%2Fpatrimonio-cultura%2Fmuseo-zamora.ficheros%2F67718-36443_SC_1.jpg%2Fg%2C67718-36443_SC_1.jpg)] flex justify-center content-center bg-repeat">
-        <div className="absolute w-[90vw] h-[90vh] bg-[rgba(176, 186, 171, 1);] m-[3%] z-10 justify-center content-start">
+      <div className="absolute w-[100vw] h-screen bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.turismocastillayleon.com%2Fes%2Fpatrimonio-cultura%2Fmuseo-zamora.ficheros%2F67718-36443_SC_1.jpg%2Fg%2C67718-36443_SC_1.jpg)] filter blur-sm flex justify-center content-center z-5 bg-cover bg-center bg-no-repeat">
+      </div>
+
+      <div className="relative w-[90vw] h-[90vh] bg-[rgba(176, 186, 171, 1);] m-[3%] z-10 justify-center content-start">
           <div className="text-5xl font-monospace content-center text-center justify-center w-[100%] h-[10%] rounded-2xl">
             <h1>Museo de la dignidad humana</h1>
           </div>
-          <div className="w-[100%] h-[80%] mt-[2%] rounded-2xl flex flex-wrap">
+          <div className="w-[100%] h-[80%] mt-[2%] rounded-2xl flex flex-wrap justify-center">
           {info.map((data) => (
             <Card name={data?.name} years={data?.years} originPlace={data?.originPlace} description={data?.description} />
           ))}
           </div>
-        </div>  
-    </div>
+      </div>  
+
     </>
   )
 }
