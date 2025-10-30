@@ -1,0 +1,91 @@
+.perspective-1000 {
+  perspective: 1000px;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/*absolute w-full h-full bg-white flex items-center justify-center backface-hidden rounded-xl shadow-lg*/
+
+.card-front {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    max-width: 450px; /* matches w-[450px] but keeps it responsive */
+    height: 100%;
+    padding: 3rem; /* roughly p-4 (you can change to px or %) */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers horizontally */
+    justify-content: center; /* centers vertically inside card */
+
+    border-style: dashed;
+    border-width: 3px; /* border-3 equivalent */
+    border-color: #ffffff; /* border-white */
+    background-color: #000000; /* bg-black */
+    transition: background-color 150ms ease-in-out;
+    backface-visibility: hidden; /* backface-hidden */
+    border-radius: 1rem; /* rounded-2xl equivalent (approx) */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg equivalent */
+    color: #f8fafc; /* default text color (text-gray-100) */
+}
+
+/*absolute w-full h-full bg-blue-500 text-white flex items-center justify-center backface-hidden rounded-xl shadow-lg*/
+
+.card-back {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    max-width: 450px; /* matches w-[450px] but keeps it responsive */
+    height: auto;
+    padding: 4rem; /* roughly p-4 (you can change to px or %) */
+    margin: 0.5rem; /* roughly m-2 */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers horizontally */
+    justify-content: center; /* centers vertically inside card */
+
+    border-style: dashed;
+    border-width: 3px; /* border-3 equivalent */
+    border-color: #000000; /* border-black */
+    background-color: #f8fafc; /* bg-white */
+    transition: background-color 150ms ease-in-out;
+    backface-visibility: hidden; /* backface-hidden */
+    border-radius: 1rem; /* rounded-2xl equivalent (approx) */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg equivalent */
+    color: #000000; /* default text color (text-gray-100) */
+}
+
+.card-front:hover {
+    background-color: #6b7280; /* hover:bg-gray-500 */
+    color: #000000; /* text color on hover */
+}
+
+.card-back {
+    background-color: #3b82f6; /* bg-blue-500 */
+    color: #ffffff; /* text-white */
+}
+
+.card h2 {
+font-size: 1.5rem; /* text-2xl */
+font-weight: 600;
+margin-bottom: 0.25rem;
+text-align: center;
+color: #ffffff;
+}
+
+.card h3, .card h4 {
+font-size: 0.875rem; /* text-sm */
+color: #d1d5db; /* text-gray-300 */
+margin-bottom: 0.25rem;
+text-align: center;
+}
+
+.card p {
+font-size: 0.875rem; /* text-sm */
+color: #f1f5f9; /* text-gray-100 */
+text-align: justify;
+margin: 0; /* remove default p margin */
+}

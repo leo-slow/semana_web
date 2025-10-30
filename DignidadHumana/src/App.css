@@ -1,8 +1,28 @@
+/* absolute w-[100vw] h-screen bg-[url(...)] filter blur-sm flex justify-center content-center z-5 bg-cover bg-center bg-no-repeat */
+
+.hero-bg {
+  position: absolute;            /* absolute */
+  width: 100vw;                  /* w-[100vw] */
+  height: 100vh;                 /* h-screen */
+  background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.turismocastillayleon.com%2Fes%2Fpatrimonio-cultura%2Fmuseo-zamora.ficheros%2F67718-36443_SC_1.jpg%2Fg%2C67718-36443_SC_1.jpg'); /* bg-[url(...)] */
+  filter: blur(4px);              /* blur-sm */
+  display: flex;                  /* flex */
+  justify-content: center;        /* justify-center */
+  align-items: center;            /* use align-items to center children vertically */
+  align-content: center;          /* content-center (for multi-line flex) */
+  z-index: 5;                     /* z-5 */
+  margin: 0;
+  background-size: cover;         /* bg-cover */
+  background-position: center;    /* bg-center */
+  background-repeat: no-repeat;   /* bg-no-repeat */
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .logo {
@@ -33,10 +53,11 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
+}
+
+h1 {
+  font-size: 2rem;
+  color: white;
 }
