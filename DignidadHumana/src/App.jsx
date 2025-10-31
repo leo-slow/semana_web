@@ -1,8 +1,26 @@
 import { useState } from 'react'
 import Card from "./components/Card.jsx"
 import './App.css'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function App() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [shadowOffset, setShadowOffset] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e
+    const { innerWidth, innerHeight } = window
+    const x = (clientX / innerWidth - 0.5) * 50 // -25 to 25 degrees
+    const y = (clientY / innerHeight - 0.5) * -50 // -25 to 25 degrees
+    
+    // Calculate shadow offset (opposite direction for realistic depth)
+    const shadowX = -(clientX / innerWidth - 0.5) * 40 // Shadow moves opposite to tilt
+    const shadowY = -(clientY / innerHeight - 0.5) * 40
+    
+    setMousePosition({ x, y })
+    setShadowOffset({ x: shadowX, y: shadowY })
+  }
   const info = [    {
         "name": "Mahatma Gandhi",
         "years": "1869 - 1948",
@@ -65,21 +83,117 @@ function App() {
     }
 ]
 
+  const location = useLocation()
+
+  // Page transition variants
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      scale: 0.95,
+      filter: "blur(10px)"
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 1.05,
+      filter: "blur(10px)",
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    }
+  }
+
   return (
     <>
       <div className="hero-bg" />
 
-      <div className="relative w-[100vw] h-[100vh] bg-[rgba(176, 186, 171, 1);] m-[3%] z-10 flex flex-col items-center justify-center">
-          <div className="text-5xl font-monospace text-center w-[100%] h-[10%] rounded-2xl flex items-center justify-center">
-            <h1>Museo de la dignidad humana</h1>
-          </div>
-          <div className="w-[100%] h-[80%] mt-[2%] rounded-2xl flex flex-wrap justify-center gap-6">
-          {info.map((data) => (
-            <Card name={data?.name} years={data?.years} originPlace={data?.originPlace} description={data?.description} />
-          ))}
-          </div>
-      </div>  
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <motion.main 
+                className="main-page" 
+                onMouseMove={handleMouseMove}
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+              <motion.h1 
+                className="main-title"
+                initial={{ opacity: 0, rotateX: -90, scale: 0.5 }}
+                animate={{ 
+                  opacity: 1, 
+                  rotateX: mousePosition.y, 
+                  rotateY: mousePosition.x,
+                  scale: 1,
+                  textShadow: `${shadowOffset.x}px ${shadowOffset.y}px 30px rgba(0, 0, 0, 0.7), ${shadowOffset.x * 0.5}px ${shadowOffset.y * 0.5}px 15px rgba(0, 0, 0, 0.5), 0 5px 10px rgba(0, 0, 0, 0.3)`
+                }}
+                transition={{ 
+                  duration: 1.5, 
+                  ease: "easeOut",
+                  rotateY: { duration: 0.3 },
+                  rotateX: { duration: 0.3 },
+                  textShadow: { duration: 0.3 }
+                }}
+                style={{ 
+                  transformStyle: "preserve-3d",
+                  perspective: 1000,
+                }}
+                whileHover={{ 
+                  scale: 1.05,
+                  textShadow: `${shadowOffset.x}px ${shadowOffset.y}px 40px rgba(255, 255, 255, 0.6), 0px 0px 20px rgba(119, 119, 119, 0.8)`,
+                }}
+              >
+                Museo de la Dignidad Humana
+              </motion.h1>
 
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0, duration: 0.7 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/gallery" className="enter-button" aria-label="Enter gallery">ENTRAR</Link>
+              </motion.div>
+            </motion.main>
+          }
+        />
+
+        <Route
+          path="/gallery"
+          element={
+            <motion.div 
+              className="relative w-[90vw] h-[90vh] bg-[rgba(176, 186, 171, 1);] m-[3%] z-10 flex flex-col items-center justify-center"
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+                <div className="text-5xl font-monospace text-center w-[100%] h-[10%] rounded-2xl flex items-center justify-center">
+                  <h1 id="activistas">Activistas y Defensores de Derechos Humanos</h1>
+                </div>
+                <div className="w-[100%] h-[80%] mt-[2%] rounded-2xl flex flex-wrap justify-center gap-4">
+                {info.map((data) => (
+                  <Card name={data?.name} years={data?.years} originPlace={data?.originPlace} description={data?.description} />
+                ))}
+                </div>
+            </motion.div>
+          }
+        />
+        </Routes>
+      </AnimatePresence>
     </>
   )
 }

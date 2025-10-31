@@ -1,28 +1,30 @@
 /* absolute w-[100vw] h-screen bg-[url(...)] filter blur-sm flex justify-center content-center z-5 bg-cover bg-center bg-no-repeat */
 
 .hero-bg {
-  position: absolute;            /* absolute */
-  width: 100vw;                  /* w-[100vw] */
-  height: 100vh;                 /* h-screen */
+  position: fixed;               /* cover the viewport reliably */
+  inset: 0;                      /* top:0; right:0; bottom:0; left:0 */
   background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.turismocastillayleon.com%2Fes%2Fpatrimonio-cultura%2Fmuseo-zamora.ficheros%2F67718-36443_SC_1.jpg%2Fg%2C67718-36443_SC_1.jpg'); /* bg-[url(...)] */
   filter: blur(4px);              /* blur-sm */
-  display: flex;                  /* flex */
-  justify-content: center;        /* justify-center */
-  align-items: center;            /* use align-items to center children vertically */
-  align-content: center;          /* content-center (for multi-line flex) */
-  z-index: 5;                     /* z-5 */
-  margin: 0;
+  display: block;
   background-size: cover;         /* bg-cover */
   background-position: center;    /* bg-center */
   background-repeat: no-repeat;   /* bg-no-repeat */
+  margin: 0;
+  z-index: 0;                     /* keep the background behind content */
+  pointer-events: none;           /* let clicks pass through to interactive elements */
+}
+
+/* Ensure the landing page content sits above the hero background so buttons are clickable */
+.main-page {
+  position: relative;
+  z-index: 10;
 }
 
 #root {
-  max-width: 1280px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .logo {
@@ -60,4 +62,58 @@
 h1 {
   font-size: 2rem;
   color: white;
+}
+
+/* Main (landing) page styles */
+.main-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 5rem;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+  font-family: 'Anton SC';
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 5px 15px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.enter-button {
+  background-color: #111827; /* gray-900 */
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 2rem;
+  font-family: 'Anton SC';
+  cursor: pointer;
+  transition: transform 150ms ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.enter-button:hover,
+.enter-button:focus {
+  background-color: #374151; /* gray-700 */
+  transform: translateY(-2px);
+}
+
+#activistas {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-family: 'Anton SC';
+  color: #ffffff;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
