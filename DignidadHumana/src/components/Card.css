@@ -208,8 +208,9 @@ h2 {
 /* Right side - Image */
 .card-expanded-image {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
+  height: 100%;
 }
 
 .image-placeholder {

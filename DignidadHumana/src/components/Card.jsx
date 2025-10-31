@@ -56,7 +56,7 @@ export default function Card3D({
     <>
       {/* Card compacta */}
       <motion.div
-        className="[perspective:1000px]"/
+        className="[perspective:1000px]"
         layoutId={`card-${name}`}
         onClick={() => setIsExpanded(true)}
       >
@@ -126,50 +126,46 @@ export default function Card3D({
 
                     {/* Imagen 3D */}
                     <div className="card-expanded-image">
-                      <div className="image-placeholder">
-                        <div className="w-full min-h-[60vh] grid place-items-center bg-gradient-to-br from-gray-50 to-white p-6">
+                      <motion.div
+                        ref={ref}
+                        onMouseMove={handleMouseMove}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        style={{
+                          perspective: 1000,
+                          width: "100%",
+                          height: "100%",
+                        }}
+                        className="relative"
+                      >
+                        <motion.div
+                          style={{ rotateX: rotX, rotateY: rotY, scale }}
+                          className="group relative h-full w-full rounded-2xl shadow-xl overflow-hidden will-change-transform"
+                        >
+                          <img
+                            src={image}
+                            alt={name}
+                            className="absolute inset-0 h-full w-full object-contain"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
                           <motion.div
-                            ref={ref}
-                            onMouseMove={handleMouseMove}
-                            onMouseEnter={() => setHovered(true)}
-                            onMouseLeave={() => setHovered(false)}
-                            style={{
-                              perspective: 1000,
-                              width: "90%",
-                              height: "90%",
-                            }}
-                            className="relative"
+                            style={{ left: glareLeft, top: glareTop }}
+                            className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 h-[140%] w-[140%] rounded-[50%] opacity-0 group-hover:opacity-60"
                           >
-                            <motion.div
-                              style={{ rotateX: rotX, rotateY: rotY, scale }}
-                              className="group relative h-full w-full rounded-2xl shadow-xl overflow-hidden will-change-transform"
-                            >
-                              <img
-                                src={image}
-                                alt={name}
-                                className="absolute inset-0 h-full w-full object-cover"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-                              <motion.div
-                                style={{ left: glareLeft, top: glareTop }}
-                                className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 h-[140%] w-[140%] rounded-[50%] opacity-0 group-hover:opacity-60"
-                              >
-                                <div className="h-full w-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.25),rgba(255,255,255,0)_60%)]" />
-                              </motion.div>
-                              <motion.div
-                                style={{ x: parallaxX, y: parallaxY }}
-                                className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1 text-white drop-shadow-sm"
-                              >
-                                <h3 className="text-xl font-semibold leading-tight">
-                                  Imagen de
-                                </h3>
-                                <p className="text-sm text-white/90">{name}</p>
-                              </motion.div>
-                              <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
-                            </motion.div>
+                            <div className="h-full w-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.25),rgba(255,255,255,0)_60%)]" />
                           </motion.div>
-                        </div>
-                      </div>
+                          <motion.div
+                            style={{ x: parallaxX, y: parallaxY }}
+                            className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1 text-white drop-shadow-sm"
+                          >
+                            <h3 className="text-xl font-semibold leading-tight">
+                              Imagen de
+                            </h3>
+                            <p className="text-sm text-white/90">{name}</p>
+                          </motion.div>
+                          <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+                        </motion.div>
+                      </motion.div>
                     </div>
                   </motion.div>
                 </motion.div>
